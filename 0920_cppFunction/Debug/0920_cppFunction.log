@@ -1,0 +1,9 @@
+﻿  exam.cpp
+E:\Programming\.C++\.Study\2021\0920_cppFunction\exam.h(235,20): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+E:\Programming\.C++\.Study\2021\0920_cppFunction\exam.h(113,4): warning C4101: 'temp' :참조되지 않은 지역 변수입니다.
+E:\Programming\.C++\.Study\2021\0920_cppFunction\exam.h(95): message : 컴파일되는 함수 템플릿 인스턴스화 'T maxn<int>(T [],int)'에 대한 참조를 확인하세요.
+          with
+          [
+              T=int
+          ]
+  0920_cppFunction.vcxproj -> E:\Programming\.C++\.Study\2021\0920_cppFunction\Debug\0920_cppFunction.exe

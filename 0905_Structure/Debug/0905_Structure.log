@@ -1,0 +1,5 @@
+﻿  src.cpp
+E:\Programming\.C++\.Study\2021\0905_Structure\src.cpp(42,2): warning C4305: '초기화 중': 'double'에서 'float'(으)로 잘립니다.
+E:\Programming\.C++\.Study\2021\0905_Structure\src.cpp(61,2): warning C4305: '초기화 중': 'double'에서 'float'(으)로 잘립니다.
+E:\Programming\.C++\.Study\2021\0905_Structure\src.cpp(68,2): warning C4305: '초기화 중': 'double'에서 'float'(으)로 잘립니다.
+  0905_Structure.vcxproj -> E:\Programming\.C++\.Study\2021\0905_Structure\Debug\0905_Structure.exe
