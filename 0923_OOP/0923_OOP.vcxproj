@@ -141,6 +141,7 @@
   <ItemGroup>
     <ClInclude Include="Account.h" />
     <ClInclude Include="Golf.h" />
+    <ClInclude Include="List.h" />
     <ClInclude Include="Move.h" />
     <ClInclude Include="Person.h" />
     <ClInclude Include="Plorg.h" />
@@ -151,6 +152,7 @@
   <ItemGroup>
     <ClCompile Include="Account.cpp" />
     <ClCompile Include="Golf.cpp" />
+    <ClCompile Include="List.cpp" />
     <ClCompile Include="Move.cpp" />
     <ClCompile Include="Person.cpp" />
     <ClCompile Include="Plorg.cpp" />

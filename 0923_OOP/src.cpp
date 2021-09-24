@@ -8,24 +8,69 @@
 #include "Sales.h"
 #include "Move.h"
 #include "Plorg.h"
+#include "List.h"
 
 const int STKS = 4;
 
+void square(Atem& atem)
+{
+	atem = atem * atem;
+}
+
+void cube(Atem& atem)
+{
+	atem = atem * atem * atem;
+}
+
 int main()
+{
+	{
+		List l1;
+		List l2(5);
+		List l3(10);
+
+		Atem a = 3;
+		l1.add(1);
+		l1.add(10);
+
+		std::cout << "\n1번 리스트: \n";
+		l1.show();
+
+		l2.add(1);
+		l2.add(2);
+		l2.add(a);
+		l2.add(a + 1);
+		l2.add(a + 2);
+		l2.visit(square);
+
+		std::cout << "\n2번 리스트: \n";
+		l2.show();
+		
+		for (int i = 0; i < 10; i++)
+			l3.add(i * 2.0);
+
+		l3.visit(cube);
+		std::cout << "\n3번 리스트: \n";
+		l3.show();
+		
+		
+	}
+	return 0;
+}
+
+void prorr()
 {
 	{
 		Plorg p1;
 		Plorg p2("Florida");
 		Plorg p3("Gamza", 18);
-		
+
 		p2.setCI(20);
 
 		p1.showPlorg();
 		p2.showPlorg();
 		p3.showPlorg();
 	}
-
-	return 0;
 }
 
 void movestes()
