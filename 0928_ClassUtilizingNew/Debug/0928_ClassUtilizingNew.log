@@ -1,0 +1,4 @@
+﻿  main.cpp
+E:\Programming\.C++\.Study\2021\0928_ClassUtilizingNew\main.cpp(24,22): warning C4244: '인수': 'time_t'에서 'unsigned int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+E:\Programming\.C++\.Study\2021\0928_ClassUtilizingNew\main.cpp(171,13): warning C4244: '인수': 'time_t'에서 'unsigned int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  0928_ClassUtilizingNew.vcxproj -> E:\Programming\.C++\.Study\2021\0928_ClassUtilizingNew\Debug\0928_ClassUtilizingNew.exe
