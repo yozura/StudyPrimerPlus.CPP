@@ -1,1 +1,0 @@
-E:\Programming\.C++\.Study\2021\0913_FileStream\Debug\0913_FileStream.exe
