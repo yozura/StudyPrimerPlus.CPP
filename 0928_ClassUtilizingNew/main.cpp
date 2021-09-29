@@ -16,82 +16,114 @@ bool newcustomer(double x) // 새 고객이 도착했는가?
 
 int main()
 {
-	using std::cin;
-	using std::cout;
-	using std::endl;
-	using std::ios_base;
+	srand(time(0));			// rand()의 무작위 초기화
 
-	std::srand(std::time(0));
-	cout << "사례 연구: 히서 은행의 ATM\n";
+	cout << "사례 연구: 히서 은행의 자동 지급기\n";
 	cout << "큐의 최대 길이를 입력하십시오: ";
 	int qs;
 	cin >> qs;
-	Queue line(qs);
 
-	cout << "시뮬레이션 시간을 입력하십시오: ";
-	int hours;
-	cin >> hours;
-	long cyclelimit = MIN_PER_HR * hours;
-	
-	cout << "시간당 평균 고객 수를 입력하십시오: ";
-	double perhour;
-	cin >> perhour;
-	double min_per_cust; // 평균 고객 도착 간격 (분 단위)
-	min_per_cust = MIN_PER_HR / perhour;
-
-	Item temp;				// 새 고객 데이터
-	long turnaways = 0;		// 큐가 가득 차서 발길을 돌린 고객 수
-	long customers = 0;		// 큐에 줄을 선 고객 수
-	long served = 0;		// 시뮬레이션에서 거래를 처리한 고객 수
-	long sum_line = 0;		// 큐의 누적 길이
-	int wait_time = 0;		// ATM이 빌 때까지 대기하는 시간
-	long line_wait = 0;		// 고객들이 줄을 서서 대기한 누적 시간
-
-	// 시뮬레이션 시작
-	for (int cycle = 0; cycle < cyclelimit; cycle++)
+	int hours;			// 시뮬레이션 시간 수
+	while (1)
 	{
-		if (newcustomer(min_per_cust)) // 새 고객이 도착했다.
+		cout << "시뮬레이션 시간 수를 입력하십시오(>= 100): ";
+		cin >> hours;
+		if (hours >= 100)
+			break;
+	}
+	// 시뮬레이션은 1분에 1주기를 실행한다
+	long cyclelimit = MIN_PER_HR * hours;	// 시뮬레이션 주기 수
+
+	double perhour;			// 시간당 평균 고객 수
+	double min_per_cust; 	// 평균 고객 도착 간격(분 단위)
+	double avg_wait_time = 0;	// 평균 대기 시간(분 단위)
+
+	Item temp;					// 새 고객 데이터
+	long turnaways;					// 큐가 가득 차서 발길을 돌린 고객 수
+	long customers;					// 큐에 줄을 선 고객 수
+	long served1, served2;			// 제1 큐, 제2 큐에서 거래를 처리한 고객 수
+	long sum_line1, sum_line2;		// 제1 큐, 제2 큐의 누적 길이
+	int wait_time1, wait_time2;		// 제1 자동 지급기, 제2 자동 지급기가 빌 때까지 대기하는 시간
+	long line_wait1, line_wait2;	// 제1 큐, 제2 큐에서 고객들이 줄을 서서 대기하는 누적 시간
+
+	for (perhour = 1; avg_wait_time < 1; perhour++)		// 평균 대기 시간이 1분 이상이 되면 루프를 탈출한다
+	{
+		Queue line1(qs);	// line1, line2 큐에는 최대 qs명까지 대기할 수 있다
+		Queue line2(qs);
+
+		min_per_cust = MIN_PER_HR / perhour;
+		turnaways = 0;
+		customers = 0;
+		served1 = served2 = 0;
+		sum_line1 = sum_line2 = 0;
+		wait_time1 = wait_time2 = 0;
+		line_wait1 = line_wait2 = 0;
+
+		for (int cycle = 0; cycle < cyclelimit; cycle++)
 		{
-			if (line.isfull())
-				turnaways++; // 발길을 돌린 고객 수 증가
-			else
+			if (newcustomer(min_per_cust))		// 새 고객이 도착했다
 			{
-				customers++; // 고객 수 증가
-				temp.set(cycle);
-				line.enqueue(temp);
+				if (line1.isfull() && line2.isfull())
+					turnaways++;
+				else
+				{
+					customers++;
+					temp.set(cycle);			// cycle이 도착 시간이 된다
+					if (line1.queuecount() < line2.queuecount())
+						line1.enqueue(temp); 	// 제1 큐에 새 고객을 추가한다
+					else
+						line2.enqueue(temp);	// 제2 큐에 새 고객을 추가한다
+				}
 			}
+			if (wait_time1 <= 0 && !line1.isempty())
+			{
+				line1.dequeue(temp); 			// 제1 큐에서 다음 고객을 받는다
+				wait_time1 = temp.ptime();		// wait_time1을 설정한다
+				line_wait1 += cycle - temp.when();
+				served1++;
+			}
+			if (wait_time2 <= 0 && !line2.isempty())
+			{
+				line2.dequeue(temp); 			// 제2 큐에서 다음 고객을 받는다
+				wait_time2 = temp.ptime();		// wait_time2를 설정한다
+				line_wait2 += cycle - temp.when();
+				served2++;
+			}
+
+			if (wait_time1 > 0)
+				wait_time1--;
+			if (wait_time2 > 0)
+				wait_time2--;
+
+			sum_line1 += line1.queuecount();
+			sum_line2 += line1.queuecount();
 		}
 
-		if (wait_time <= 0 && !line.isempty())
+		if (customers > 0)
 		{
-			line.dequeue(temp);
-			wait_time = temp.ptime();
-			line_wait += cycle - temp.when(); // 줄 서서 대기한 누적 시간 증가
-			served++; // 거래 처리 고객 수 증가
+			cout << "-------------------------------\n";
+			cout << "  시간당 평균 고객 수: " << (int)perhour << '\n';
+			cout << " 큐에 줄을 선 고객 수: " << customers << '\n';
+			cout << "거래를 처리한 고객 수: " << served1 + served2 << '\n';
+			cout << "  발길을 돌린 고객 수: " << turnaways << '\n';
+			cout << "       평균 큐의 길이: ";
+			cout.precision(2);
+			cout.setf(ios_base::fixed, ios_base::floatfield);
+			cout.setf(ios_base::showpoint);
+			cout << (double)((sum_line1 + sum_line2) / 2) / cyclelimit << '\n';
+			cout << "       평균 대기 시간: "
+				<< (double)((line_wait1 + line_wait2) / 2) / (served1 + served2) << "분\n";
 		}
+		else
+			cout << "고객이 한 명도 없습니다!\n";
 
-		if (wait_time > 0)
-			wait_time--;
-
-		sum_line += line.queuecount(); // 큐의 누적 길이 증가
+		avg_wait_time = (double)((line_wait1 + line_wait2) / 2) / (served1 + served2);
 	}
 
-	if (customers > 0)
-	{
-		cout << " 큐에 줄을 선 고객 수: " << customers << endl;
-		cout << "거래를 처리한 고객 수: " << served << endl;
-		cout << "  발길을 돌린 고객 수: " << turnaways << endl;
-		cout << "       평균 큐의 길이: ";
-		cout.precision(2);
-		cout.setf(ios_base::fixed, ios_base::floatfield);
-		cout.setf(ios_base::showpoint);
-		cout << (double)sum_line / cyclelimit << endl;
-		cout << "       평균 대기 시간: " << (double)line_wait / served << "분\n";
-	}
-	else
-		cout << "고객이 한 명도 없습니다!\n";
-	cout << "완료!\n";
-	
+	cout << "\n" << "자동 지급기를 2대 설치했을 경우에,\n"
+		<< "시간당 평균 고객 수가 " << (int)perhour - 1 << "명 이상이 되면,\n"
+		<< "평균 대기 시간이 1분을 초과하게 됩니다.\n";
+
 	return 0;
 }
 
