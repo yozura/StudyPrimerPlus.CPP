@@ -3,6 +3,8 @@
 #include "wine.h"
 #include "worker0.h"
 #include "queue.h"
+#include "person.h"
+#include "emp.h"
 
 using namespace std;
 
@@ -10,8 +12,71 @@ const int SIZE = 5;
 
 int main()
 {
+	employee em("Trip", "Harris", "Thumper");
+	cout << em << endl;
+	em.ShowAll();
+
+	manager ma("Amorphia", "Spindragon", "Nuancer", 5);
+	cout << ma << endl;
+	ma.ShowAll();
+
+	fink fi("Matt", "Oggs", "Oiler", "Juno Barr");
+	cout << fi << endl;
+	fi.ShowAll();
+
+	highfink hf(ma, "Curly Kew");
+	hf.ShowAll();
+
+	cout << "다음 출력을 위해 아무 키나 누르십시오:\n";
+	cin.get();
 	
+	highfink hf2;
+	hf2.SetAll();
+
+	cout << "abstr_emp* 포인터의 사용:\n";
+	abstr_emp* tri[4] = { &em, &fi, &hf, &hf2 };
+	for (int i = 0; i < 4; i++)
+		tri[i]->ShowAll();
+
 	return 0;
+}
+
+void useVirtualInheritance()
+{
+	srand(time(0));
+
+	Person ps("Com", "Puter");
+	Gunslinger gl("Kay", "Gay", 5);
+	PokerPlayer pp("La", "Vita");
+	BadDude bd("Mc", "Nald", 100);
+
+	cout << "사람의 정보: ";
+	ps.Show();
+
+	cout << "총잽이의 빠르기: " << gl.Draw() << '\n';
+	cout << "총잽이의 정보: ";
+	gl.Show();
+
+	cout << "포커플레이어의 한 수: " << pp.Draw() << '\n';
+	cout << "포커플레이어의 정보: ";
+	pp.Show();
+
+	cout << "밷듇의 빠르기: " << bd.Gdraw() << '\n';
+	cout << "밷듇의 한 수: " << bd.Cdraw() << '\n';
+	cout << "밷듇의 정보: ";
+	bd.Show();
+
+	cout << "\n사람이 총잽이로 변했다? ";
+	ps = gl;
+	ps.Show();
+
+	cout << "\n사람이 포커플레이어로 변했다? ";
+	ps = pp;
+	ps.Show();
+
+	cout << "\n사람이 밷듇으로 변했다? ";
+	ps = bd;
+	ps.Show();
 }
 
 void useTemplateQueue()
