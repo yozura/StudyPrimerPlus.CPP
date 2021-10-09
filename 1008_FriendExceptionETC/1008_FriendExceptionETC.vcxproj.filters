@@ -18,6 +18,15 @@
     <ClInclude Include="tv.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="queuetp.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="exc_mean.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="sales.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="tv.cpp">

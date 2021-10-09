@@ -139,6 +139,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="exc_mean.h" />
+    <ClInclude Include="queuetp.h" />
+    <ClInclude Include="sales.h" />
     <ClInclude Include="tv.h" />
   </ItemGroup>
   <ItemGroup>
