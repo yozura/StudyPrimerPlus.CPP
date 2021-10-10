@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{988cdd7d-a4fd-4ada-9386-2ab33ff55c8b}</ProjectGuid>
-    <RootNamespace>My1008FriendExceptionETC</RootNamespace>
+    <ProjectGuid>{2dede0ac-887c-42c7-8c06-812a5f96653a}</ProjectGuid>
+    <RootNamespace>My1010RTTIDataCasting</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -139,15 +139,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="exc_mean.h" />
-    <ClInclude Include="queuetp.h" />
-    <ClInclude Include="sales.h" />
-    <ClInclude Include="tv.h" />
+    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="sales.cpp" />
-    <ClCompile Include="tv.cpp" />
+    <ClInclude Include="rtti1.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
